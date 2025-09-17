@@ -1,0 +1,45 @@
+Metadata-Version: 2.4
+Name: gomoku-exact5
+Version: 0.1.0
+Summary: Exact-5 Gomoku (Five-in-a-Row) Gymnasium environment
+Author-email: Your Name <you@example.com>
+License: MIT
+Project-URL: Homepage, https://example.com/gomoku-exact5
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: gymnasium>=0.29.0
+Requires-Dist: numpy>=1.23
+Provides-Extra: dev
+Requires-Dist: pytest>=7; extra == "dev"
+Requires-Dist: pytest-cov>=4; extra == "dev"
+Requires-Dist: ruff>=0.5.0; extra == "dev"
+Requires-Dist: mypy>=1.5.0; extra == "dev"
+
+# gomoku-exact5
+
+Exact-5 (恰好五连才胜) 的五子棋 Gymnasium 环境。
+
+## 安装
+
+```bash
+pip install -e .
+```
+
+## 使用
+```python
+import gymnasium as gym
+import numpy as np
+
+env = gym.make("GomokuExact5-v0", board_size=15)
+obs, info = env.reset(seed=42)
+
+done = False
+while not done:
+    mask = obs["action_mask"]
+    action = np.random.choice(np.flatnonzero(mask))
+    obs, reward, terminated, truncated, info = env.step(action)
+    done = terminated or truncated
+
+print("Result:", reward, info)
+env.close()
+```

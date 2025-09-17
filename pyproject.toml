@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68", "setuptools-scm>=8", "wheel"]
+[tool.setuptools_scm]
+version_scheme = "no-guess-dev"
+
+[project]
+name = "gomoku-exact5"
+version = "0.1.0"
+description = "Exact-5 Gomoku (Five-in-a-Row) Gymnasium environment"
+authors = [{ name = "Your Name", email = "you@example.com" }]
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.9"
+dependencies = [
+  "gymnasium>=0.29.0",
+  "numpy>=1.23",
+]
+
+[project.urls]
+Homepage = "https://example.com/gomoku-exact5"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+# 让 `import gomoku_exact5` 时自动注册 env_id
+[tool.setuptools.package-data]
+gomoku_exact5 = ["py.typed"]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=7",
+  "pytest-cov>=4",
+  "ruff>=0.5.0",
+  "mypy>=1.5.0",
+]

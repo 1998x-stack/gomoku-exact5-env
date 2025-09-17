@@ -1,0 +1,13 @@
+README.md
+pyproject.toml
+setup.cfg
+src/gomoku_exact5/__init__.py
+src/gomoku_exact5/envs.py
+src/gomoku_exact5/render.py
+src/gomoku_exact5/rules.py
+src/gomoku_exact5.egg-info/PKG-INFO
+src/gomoku_exact5.egg-info/SOURCES.txt
+src/gomoku_exact5.egg-info/dependency_links.txt
+src/gomoku_exact5.egg-info/requires.txt
+src/gomoku_exact5.egg-info/top_level.txt
+tests/test_env.py
