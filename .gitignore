@@ -2,3 +2,4 @@
 __pycache__/*
 */__pycache__/*
 */*/__pycache__
+gomoku_exact5.egg-info/*
