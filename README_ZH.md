@@ -12,6 +12,7 @@ pip install -e .
 ```python
 import gymnasium as gym
 import numpy as np
+import gomoku_exact5
 
 env = gym.make("GomokuExact5-v0", board_size=15)
 obs, info = env.reset(seed=42)
