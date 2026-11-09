@@ -52,6 +52,7 @@ class GomokuExact5Env(gym.Env):
         self._board = np.zeros((self.n, self.n), dtype=np.int8)
         self._to_play: Player = 1  # 1=黑, 2=白; obs["to_play"]=0/1 表示轮到谁
         self._moves = 0
+        self._terminated = False
         self._last_info: Dict[str, Any] = {}
 
     # ====== Gymnasium API ======
@@ -61,11 +62,15 @@ class GomokuExact5Env(gym.Env):
         self._board.fill(0)
         self._to_play = 1
         self._moves = 0
+        self._terminated = False
         self._last_info = {}
         return self._obs(), dict()
 
     def step(self, action: int):
-        assert self.action_space.contains(action), "action out of range"
+        if self._terminated:
+            raise RuntimeError("episode finished; call reset() before step()")
+        if not self.action_space.contains(action):
+            raise ValueError("action out of range")
         x, y = divmod(action, self.n)
 
         terminated = False
@@ -84,6 +89,8 @@ class GomokuExact5Env(gym.Env):
                 reward = self.illegal_action_penalty
                 info["invalid_move"] = True
                 terminated = True
+                self._terminated = True
+                self._last_info = info
                 return self._obs(), reward, terminated, truncated, info
 
         color: Player = self._to_play
@@ -108,6 +115,7 @@ class GomokuExact5Env(gym.Env):
             # 延迟渲染：由外部调用 env.render() 输出
             pass
 
+        self._terminated = terminated
         self._last_info = info
         return self._obs(), reward, terminated, truncated, info
 

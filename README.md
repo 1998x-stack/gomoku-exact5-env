@@ -103,3 +103,14 @@ When extending the package, prefer additive changes that do not alter observatio
 ## Conclusion
 
 GomokuExact5-v0 offers a compact yet expressive task where the exact-five rule produces clear objectives and interpretable dynamics for reinforcement learning. By combining deterministic adjudication, masked actions, and a minimal reward structure, the environment enables focused experimentation without hidden complexities. The provided installation pathway, rendering, seeding, and testing guidance make it straightforward to integrate into existing research workflows and to maintain over time. As you extend the environment, consider adding analysis wrappers, richer diagnostics, or curricula that progressively scale board sizes, all while keeping the public interface stable. With these practices, GomokuExact5-v0 can serve as a dependable foundation for both teaching and state-of-the-art research.
+
+## P2 / 环境契约与终局保护（2026-11-09）
+
+`step()` 在一次胜负/非法落子终局后**禁止继续落子**，必须先调用 `reset()`。越界动作给出明确的 `ValueError`，非法占位动作仍按 `allow_illegal` 配置处理。新增横/竖/斜恰 5 与 6 连不胜用例、落子掩码、回合切换、非法动作和终局后调用回归测试。
+
+```bash
+python -m pip install -e '.[dev]'
+python -m pytest -q tests/test_env.py tests/test_exact5_contract.py
+```
+
+本仓库是围棋式规则研究所用的**五子棋环境**，并非独立在线游戏；新的 CI 只认证此处列出的规则及环境接口用例。
